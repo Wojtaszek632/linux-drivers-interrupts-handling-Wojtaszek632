@@ -14,7 +14,7 @@ int main(void) {
 	
 	int fd = open("/dev/my_device_driver", O_RDWR);
 	
-	if (fd < 0) {	printf("Unable to open driver\n"); 	return 0;	}
+	if (fd < 0) {	printf("Unable to open driver\n"); 	return 1;	}
 	
 	printf("Opened the driver!\n");
 	
@@ -27,7 +27,7 @@ int main(void) {
 	
 	//printf("Writing IOCTL!\n");	
 	
-	if (read(fd, readBuff, 50 ) < 0) {  printf("Unable to read from driver\n");	return 0;	}
+	if (read(fd, readBuff, 50 ) < 0) {  printf("Unable to read from driver\n");	return 1;	}
 	
 	printf("RECIVED FROM DRIVER: %s\n",readBuff);
 	  
@@ -35,11 +35,11 @@ int main(void) {
 	
 	my_ioctl_data data ={5};
 	
-	if (ioctl(fd, MY_IOCTL_IN, &data) < 0) {printf("Unable to handle IOCTL\n"); perror("Error:");	return 0;	}
+	if (ioctl(fd, MY_IOCTL_IN, &data) < 0) {printf("Unable to handle IOCTL\n"); perror("Error:");	return 1;	}
 	
 	printf("Written IOCTL\n");
 		
-	if (read(fd, readBuff, 50 ) < 0) {  printf("Unable to read from driver\n");	return 0;	}
+	if (read(fd, readBuff, 50 ) < 0) {  printf("Unable to read from driver\n");	return 1;	}
 	
 	printf("RECIVED FROM DRIVER: %s\n",readBuff);
 		
